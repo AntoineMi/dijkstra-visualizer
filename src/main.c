@@ -20,7 +20,7 @@ int main() {
 
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Surface *screen = SDL_SetVideoMode(
-        WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE);
+        WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL);
     SDL_WM_SetCaption(WINDOW_TITLE, 0);
 
 
@@ -28,15 +28,17 @@ int main() {
      ********/
 
     int gr[NNODES][NNODES] = {
-      /* 0   1   2   3   4 */
-        {0 , 4 , 0 , 0 , 0 }, /* 0 */
-        {0 , 0 , 13, 7 , 0 }, /* 1 */
-        {0 , 0 , 0 , 0 , 4 }, /* 2 */
-        {0 , 0 , 3 , 0 , 9 }, /* 3 */
-        {0 , 0 , 0 , 0 , 0 }  /* 4 */
+       /* 0   1   2   3   4 */
+        {  0, 4 , 0 , 0 , 0 }, /* 0 */
+        {  0, 0 , 13, 7 , 0 }, /* 1 */
+        {  0, 0 , 0 , 0 , 4 }, /* 2 */
+        {  0, 0 , 3 , 0 , 9 }, /* 3 */
+        {  0, 0 , 0 , 0 , 0 }  /* 4 */
     };
 
     printMatrix(gr);
+    
+    int *result = solveDijkstra(gr, 0);
 
     /* LOOP
      ******/
@@ -71,13 +73,13 @@ int main() {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glColor3ub(255, 0, 0);
-
         glBegin(GL_QUADS);
-            glVertex2f(-0.5, -0.5);
-            glVertex2f(-0.5, 0.5);
-            glVertex2f(0.5, 0.5);
-            glVertex2f(0.5, -0.5);
+            glColor3ub(0,0,255);
+            glVertex2d(-0.75,-0.75);
+            glVertex2d(-0.75,0.75);
+            glColor3ub(255,0,0);
+            glVertex2d(0.75,0.75);
+            glVertex2d(0.75,-0.75);
         glEnd();
 
 
