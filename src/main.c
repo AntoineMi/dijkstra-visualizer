@@ -20,12 +20,21 @@ int main(int argc, char *argv[]) {
     ***********************************/
 
     int start;
-    if (argc != 2) {
-        printf("Argument(s) incorrect(s), sommet de départ = 0\n");
+    if ((argc != 2)) {
         start = 0;
+        printf("Argument(s) incorrect(s), sommet de départ = 0\n");
     } else {
         start = atoi(argv[1]);
-        printf("Sommet de départ = %d\n", start);
+
+        /* Vérifier si le sommet demandé existe */
+        if (start >= NNODES) {
+            start = NNODES - 1;
+            printf("Il n'y a que %d sommets, sommet de départ = %d\n", NNODES, start);
+        } else if (start < 0) {
+            start = 0;
+            printf("Sommet de départ = 0\n");
+        } else
+            printf("Sommet de départ = %d\n", start);
     }
 
     /* INITIALISATION SDL ET GLUT

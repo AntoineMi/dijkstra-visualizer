@@ -5,6 +5,9 @@
 
 void printMatrix(int matrix[NNODES][NNODES]) {
     int i, j;
+
+    printf("\n MATRICE D'ADJACENCE\n");
+    
     for (i = 0; i < NNODES; i++) {
         for (j = 0; j < NNODES; j++) {
             printf( "%3d ", matrix[i][j] );
