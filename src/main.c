@@ -6,22 +6,37 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 
+#include "draw.h"
 #include "graph.h"
 
-int WINDOW_WIDTH = 600;
+int WINDOW_WIDTH = 800;
 int WINDOW_HEIGHT = 600;
 int BIT_PER_PIXEL = 32;
 char* WINDOW_TITLE = "Dijkstra Visualizer";
 
-int main() {
+int main(int argc, char *argv[]) {
 
-    /* INITIALISATION SDL
-    *********************/
+    /* RÉCUPÉRATION DU SOMMET DE DÉPART
+    ***********************************/
+
+    int start;
+    if (argc != 2) {
+        printf("Argument(s) incorrect(s), sommet de départ = 0\n");
+        start = 0;
+    } else {
+        start = atoi(argv[1]);
+        printf("Sommet de départ = %d\n", start);
+    }
+
+    /* INITIALISATION SDL ET GLUT
+    *****************************/
 
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Surface *screen = SDL_SetVideoMode(
         WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL);
     SDL_WM_SetCaption(WINDOW_TITLE, 0);
+
+    glutInit(&argc, argv);
 
 
     /* GRAPHE
@@ -29,16 +44,16 @@ int main() {
 
     int gr[NNODES][NNODES] = {
        /* 0   1   2   3   4 */
-        {  0, 4 , 0 , 0 , 0 }, /* 0 */
-        {  0, 0 , 13, 7 , 0 }, /* 1 */
-        {  0, 0 , 0 , 0 , 4 }, /* 2 */
-        {  0, 0 , 3 , 0 , 9 }, /* 3 */
-        {  0, 0 , 0 , 0 , 0 }  /* 4 */
+        { 0 , 4 , 0 , 0 , 0 }, /* 0 */
+        { 0 , 0 , 13, 7 , 0 }, /* 1 */
+        { 0 , 0 , 0 , 0 , 4 }, /* 2 */
+        { 0 , 0 , 3 , 0 , 9 }, /* 3 */
+        { 0 , 0 , 0 , 0 , 0 }  /* 4 */
     };
 
     printMatrix(gr);
-    
-    int *result = solveDijkstra(gr, 0);
+
+    int *result = solveDijkstra(gr, start);
 
     /* LOOP
      ******/
@@ -71,8 +86,27 @@ int main() {
         /* DESSIN
         *********/
 
+        /* Nettoyer le buffer et afficher un fond blanc */
         glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(1, 1, 1, 1);
 
+        /* Origine du repère en haut à gauche, de la taille de la fenêtre */
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, 1);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
+
+        drawNode(0, 100, 100, 255, 0, 0);
+
+
+
+
+
+
+
+        /*
         glBegin(GL_QUADS);
             glColor3ub(0,0,255);
             glVertex2d(-0.75,-0.75);
@@ -81,6 +115,7 @@ int main() {
             glVertex2d(0.75,0.75);
             glVertex2d(0.75,-0.75);
         glEnd();
+        */
 
 
         /* AFFICHAGE

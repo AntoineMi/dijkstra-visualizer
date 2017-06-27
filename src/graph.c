@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
 
+#include "draw.h"
 #include "graph.h"
 
 void printMatrix(int matrix[NNODES][NNODES]) {
@@ -12,10 +11,6 @@ void printMatrix(int matrix[NNODES][NNODES]) {
         }
         printf("\n");
     }
-}
-
-void drawGraph(int matrix[NNODES][NNODES]) {
-    printf("do\n");
 }
 
 int* solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
@@ -54,6 +49,9 @@ int* solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
     distances[start] = 0;
     visited[start] = 1;
     count = 1;
+
+    /* CALCUL
+    *********/
     
     while(count < NNODES - 1) {
         smallest = INF;
@@ -65,6 +63,7 @@ int* solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
                 
                 smallest = distances[i];
                 next = i;
+                printf("Sélection de %d (%d)\n", i, distances[i]);
             }
             
             /* recherche d'un chemin plus court via le sommet suivant */          
@@ -86,14 +85,17 @@ int* solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
         if (i != start) {
             
             printf("\nJusqu'au sommet %d\n", i);
-            printf("Distance : %d\n", distances[i]);
+            if (distances[i] == INF)
+                printf("Impossible de rejoindre %d", i);
+            else {
+                printf("Chemin : %d", i);
             
-            printf("Chemin : %d", i);
-            j = i;
-            do {
-                j = predecessors[j];
-                printf(" <-- %d", j);
-            } while (j != start);
+                j = i;
+                do {
+                    j = predecessors[j];
+                    printf(" <-- %d", j);
+                } while (j != start);
+            }
             printf("\n");
         }
     }
