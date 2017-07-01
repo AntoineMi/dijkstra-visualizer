@@ -106,8 +106,9 @@ int main(int argc, char *argv[]) {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-
-        drawNode(0, 100, 100, 255, 0, 0);
+        char num[] = "1";
+        drawNode(num, 100, 100, 255, 0, 0);
+        drawGraph(gr);
 
 
 
