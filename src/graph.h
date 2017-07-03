@@ -8,6 +8,7 @@
 typedef struct Node {
     int x, y;
     int num;
+    int r, g, b;
 } Node;
 
 typedef struct Edge {

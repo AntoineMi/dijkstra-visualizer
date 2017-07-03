@@ -3,10 +3,18 @@
 
 #include "graph.h"
 
-/* dessiner un graphe à partir de sa matrice */
-void drawGraph(int matrix[NNODES][NNODES]);
+Node nodeArr[NNODES];
+Edge edgeArr[NNODES * NNODES];
 
-/* dessiner un sommet avec son numéro, une position x y, et une couleur */
-void drawNode(char *num, double x, double y, int r, int g, int b);
+/* créer un graphe à partir de sa matrice */
+void createGraph(int matrix[NNODES][NNODES]);
+
+void drawGraph();
+
+/* dessiner un sommet */
+void drawNode(int num);
+
+/* dessiner une arête */
+void drawEdge(int num);
 
 #endif

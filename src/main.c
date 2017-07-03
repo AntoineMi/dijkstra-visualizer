@@ -64,6 +64,8 @@ int main(int argc, char *argv[]) {
 
     int *result = solveDijkstra(gr, start);
 
+    createGraph(gr);
+
     /* LOOP
      ******/
 
@@ -106,9 +108,9 @@ int main(int argc, char *argv[]) {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-        char num[] = "1";
-        drawNode(num, 100, 100, 255, 0, 0);
-        drawGraph(gr);
+        /*char num[] = "1";
+        drawNode(num, 100, 100, 255, 0, 0);*/
+        drawGraph();
 
 
 
