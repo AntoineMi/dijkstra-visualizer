@@ -21,6 +21,6 @@ typedef struct Edge {
 void printMatrix(int matrix[NNODES][NNODES]);
 
 /* calculer le plus court chemin depuis start vers les autres sommets */
-int* solveDijkstra(int matrix[NNODES][NNODES], int start);
+int solveDijkstra(int matrix[NNODES][NNODES], int start);
 
 #endif

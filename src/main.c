@@ -62,15 +62,14 @@ int main(int argc, char *argv[]) {
 
     printMatrix(gr);
 
-    int *result = solveDijkstra(gr, start);
-
-    createGraph(gr);
+    createGraph();
 
     /* LOOP
      ******/
 
     SDL_Event event;
     int loop = 1;
+    int done = 0;
     while (loop) {
 
         /* CONTRÔLES
@@ -111,8 +110,11 @@ int main(int argc, char *argv[]) {
         glLineWidth(5);
         drawGraph();
 
-
-
+        glFlush();
+        SDL_GL_SwapBuffers();
+        
+        if (!done)
+            done = solveDijkstra(gr, start);
 
 
 
@@ -127,13 +129,6 @@ int main(int argc, char *argv[]) {
             glVertex2d(0.75,-0.75);
         glEnd();
         */
-
-
-        /* AFFICHAGE
-        ************/
-
-        glFlush();
-        SDL_GL_SwapBuffers();
 
     }
 

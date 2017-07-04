@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
 
@@ -12,8 +13,8 @@
 3) top right
 4) bottom right */
 
-void createGraph(int matrix[NNODES][NNODES]) {
-    int i, j;
+void createGraph() {
+    int i;
 
     /* remplir les tableaux de sommets et d'arêtes */
     for (i = 0; i < NNODES; i++) {
@@ -80,6 +81,9 @@ void drawGraph() {
         drawEdge(i);
     for (i = 0; i < NNODES; i++)
         drawNode(i);
+
+    glFlush();
+    SDL_GL_SwapBuffers();
 }
 
 void drawNode(int num) {
@@ -173,6 +177,18 @@ void drawEdge(int num) {
         glVertex2d(trX2, trY2);
         glVertex2d(trX3, trY3);
     glEnd();
+}
+
+void drawCost(int num, int node) {
+    char str[2];
+    char *c;
+
+    glColor3ub(0, 255, 0);
+    glRasterPos2i(nodeArr[node].x, nodeArr[node].y + 30);
+    sprintf(str, "%d", num);
+    for (c = str; *c != '\0'; c++) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+    }
 }
 
 /*

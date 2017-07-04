@@ -7,7 +7,7 @@ Node nodeArr[NNODES];
 Edge edgeArr[NNODES * NNODES];
 
 /* créer un graphe à partir de sa matrice */
-void createGraph(int matrix[NNODES][NNODES]);
+void createGraph();
 
 void drawGraph();
 
@@ -16,5 +16,8 @@ void drawNode(int num);
 
 /* dessiner une arête */
 void drawEdge(int num);
+
+/* dessiner sous un sommet le coût depuis start */
+void drawCost(int num, int node);
 
 #endif
