@@ -27,7 +27,6 @@ void createGraph(int matrix[NNODES][NNODES]) {
         edgeArr[i].r = 0;
         edgeArr[i].g = 0;
         edgeArr[i].b = 0;
-        printf("mdr\n");
     }
 
     /* IMPLÉMENTATION "EN DUR"
@@ -39,11 +38,11 @@ void createGraph(int matrix[NNODES][NNODES]) {
     nodeArr[1].x = 300;
     nodeArr[1].y = 200;
 
-    nodeArr[2].x = 400;
-    nodeArr[2].y = 400;
+    nodeArr[2].x = 500;
+    nodeArr[2].y = 200;
 
-    nodeArr[3].x = 500;
-    nodeArr[3].y = 200;
+    nodeArr[3].x = 400;
+    nodeArr[3].y = 400;
 
     nodeArr[4].x = 600;
     nodeArr[4].y = 400;
@@ -77,13 +76,10 @@ void createGraph(int matrix[NNODES][NNODES]) {
 
 void drawGraph() {
     int i;
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < 6; i++)
         drawEdge(i);
-        printf("%d\n", i);
-    }
-    for (i = 0; i < NNODES; i++) {
+    for (i = 0; i < NNODES; i++)
         drawNode(i);
-    }
 }
 
 void drawNode(int num) {
@@ -102,6 +98,7 @@ void drawNode(int num) {
         glVertex2d(x + 25, y - 25);
     glEnd();
 
+
     /* texte */
     glColor3ub(255, 255, 255);
     glRasterPos2i(x - 5, y + 5);
@@ -113,6 +110,8 @@ void drawNode(int num) {
 
 void drawEdge(int num) {
     double x1, y1, x2, y2;
+    double trX1, trX2, trX3, trY1, trY2, trY3;
+    int centerX, centerY;
     char str[2];
     char *c;
 
@@ -122,12 +121,57 @@ void drawEdge(int num) {
     x2 = edgeArr[num].dest.x;
     y2 = edgeArr[num].dest.y;
 
-    printf("arête n. %d, x = %f , y = %f\n", num, x1, y1);
-
+    glColor3ub(edgeArr[num].r, edgeArr[num].g, edgeArr[num].b);
     glBegin(GL_LINES);
         glColor3ub(edgeArr[num].r, edgeArr[num].g, edgeArr[num].b);
         glVertex2d(x1, y1);
         glVertex2d(x2, y2);
+    glEnd();
+
+
+    /* texte */
+    centerX = fabs(x1 + x2) / 2;
+    centerY = fabs(y1 + y2) / 2;
+
+    glColor3ub(0, 0, 255);
+    glRasterPos2i(centerX + 10, centerY - 10);
+    sprintf(str, "%d", edgeArr[num].cost);
+    for (c = str; *c != '\0'; c++) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+    }
+
+
+    /* triangle */
+    if (y1 != y2) {
+        if (y1 > y2) {
+            trX1 = centerX;
+            trY1 = centerY;
+            trX2 = centerX + 3;
+            trY2 = centerY + 17;
+            trX3 = centerX - 17;
+            trY3 = centerY + 5;
+        } else {
+            trX1 = centerX;
+            trY1 = centerY;
+            trX2 = centerX - 17;
+            trY2 = centerY - 5;
+            trX3 = centerX + 3;
+            trY3 = centerY - 17;
+        }
+    } else {
+        trX1 = centerX;
+        trY1 = centerY;
+        trX2 = centerX - 15;
+        trY2 = centerY + 10;
+        trX3 = centerX - 15;
+        trY3 = centerY - 10;
+    }
+
+    glColor3ub(edgeArr[num].r, edgeArr[num].g, edgeArr[num].b);
+    glBegin(GL_TRIANGLES);
+        glVertex2d(trX1, trY1);
+        glVertex2d(trX2, trY2);
+        glVertex2d(trX3, trY3);
     glEnd();
 }
 

@@ -83,7 +83,8 @@ int* solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
         count++;
     }
 
-    /* affichage */
+    /* AFFICHAGE
+    ************/
     for (i = 0; i < NNODES; i++) {
         if (i != start) {
             

@@ -107,9 +107,8 @@ int main(int argc, char *argv[]) {
         glOrtho(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-
-        /*char num[] = "1";
-        drawNode(num, 100, 100, 255, 0, 0);*/
+        
+        glLineWidth(5);
         drawGraph();
 
 
