@@ -200,7 +200,7 @@ void nextStep(int i) {
         } else {
             nodeArr[i].g = 255;
             nodeArr[i].showCost ++;
-            edgeArr[i].g = 255;
+            /*edgeArr[i].g = 255;*/
         }
     }
 }
