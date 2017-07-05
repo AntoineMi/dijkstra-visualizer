@@ -17,7 +17,7 @@ void printMatrix(int matrix[NNODES][NNODES]) {
     }
 }
 
-int solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
+int * solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
     int count, smallest, next, i, j;
 
     /* tableau des distances */
@@ -47,7 +47,7 @@ int solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
     /* distance depuis start jusqu'à chaque sommet */
     for (i = 0; i < NNODES; i++) {
         distances[i] = costMatrix[start][i]; /* coût si relié, infini sinon */
-        predecessors[i] = start; /* nous passons par chaque sommet depuis start */
+        predecessors[i] = start; /* on passe par chaque sommet depuis start */
     }
     
     distances[start] = 0;
@@ -72,7 +72,6 @@ int solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
             
             /* recherche d'un chemin plus court via le sommet suivant */          
             visited[next] = 1;
-            nodeArr[next].r = 255;
             for (i = 0; i < NNODES; i++) {
                 if (!visited[i]) {
                     if (smallest + costMatrix[next][i] < distances[i]) {
@@ -96,7 +95,6 @@ int solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
             else {
                 printf("Coût : %d\n", distances[i]);
                 printf("Chemin : %d", i);
-                drawCost(distances[i], i);
             
                 j = i;
                 do {
@@ -108,5 +106,5 @@ int solveDijkstra(int graphMatrix[NNODES][NNODES], int start) {
         }
     }
 
-    return 1;
+    return distances;
 }

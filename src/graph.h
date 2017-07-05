@@ -5,10 +5,13 @@
 #define INF 1000
 #define PI 3.1415
 
+int start;
+
 typedef struct Node {
     int x, y;
     int num;
     int r, g, b;
+    int showCost;
 } Node;
 
 typedef struct Edge {
@@ -21,6 +24,6 @@ typedef struct Edge {
 void printMatrix(int matrix[NNODES][NNODES]);
 
 /* calculer le plus court chemin depuis start vers les autres sommets */
-int solveDijkstra(int matrix[NNODES][NNODES], int start);
+int * solveDijkstra(int matrix[NNODES][NNODES], int start);
 
 #endif

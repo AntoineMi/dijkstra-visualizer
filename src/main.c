@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
     /* RÉCUPÉRATION DU SOMMET DE DÉPART
     ***********************************/
 
-    int start;
     if ((argc != 2)) {
         start = 0;
         printf("Argument(s) incorrect(s), sommet de départ = 0\n");
@@ -41,7 +40,7 @@ int main(int argc, char *argv[]) {
     *****************************/
 
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Surface *screen = SDL_SetVideoMode(
+    SDL_SetVideoMode(
         WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL);
     SDL_WM_SetCaption(WINDOW_TITLE, 0);
 
@@ -68,8 +67,10 @@ int main(int argc, char *argv[]) {
      ******/
 
     SDL_Event event;
+    int i;
     int loop = 1;
     int done = 0;
+    play = 0;
     while (loop) {
 
         /* CONTRÔLES
@@ -85,11 +86,15 @@ int main(int argc, char *argv[]) {
                     if (event.key.keysym.sym == SDLK_ESCAPE)
                         loop = 0;
 
-                    if (event.key.keysym.sym == 's')
-                        printf("s pressed\n");
+                    if (event.key.keysym.sym == 's') {
+                        if (play) play --;
+                        else play ++;
+                    }
 
-                    if (event.key.keysym.sym == 'p')
-                        printf("p pressed\n");
+                    if (event.key.keysym.sym == 'p') {
+                        nextStep(i);
+                        i++;
+                    }
             }
         }
 
@@ -113,8 +118,16 @@ int main(int argc, char *argv[]) {
         glFlush();
         SDL_GL_SwapBuffers();
         
-        if (!done)
-            done = solveDijkstra(gr, start);
+        if (!done) {
+            distances = solveDijkstra(gr, start);
+            done ++;
+        }
+
+        if (play) {
+            SDL_Delay(1000);
+            nextStep(i);
+            i++;
+        }
 
 
 

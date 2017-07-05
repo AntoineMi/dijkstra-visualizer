@@ -6,10 +6,19 @@
 Node nodeArr[NNODES];
 Edge edgeArr[NNODES * NNODES];
 
+int *distances;
+int *visited;
+int *costMatrix;
+int play;
+
 /* créer un graphe à partir de sa matrice */
 void createGraph();
 
+/* dessiner le graphe */
 void drawGraph();
+
+/* dessiner la légende du graphe */
+void drawLegend();
 
 /* dessiner un sommet */
 void drawNode(int num);
@@ -17,7 +26,7 @@ void drawNode(int num);
 /* dessiner une arête */
 void drawEdge(int num);
 
-/* dessiner sous un sommet le coût depuis start */
-void drawCost(int num, int node);
+/* étape suivante de l'animation */
+void nextStep(int i);
 
 #endif
