@@ -8,6 +8,7 @@ Edge edgeArr[NNODES * NNODES];
 
 int *distances;
 int *visited;
+int *predecessors;
 int *costMatrix;
 int play;
 
